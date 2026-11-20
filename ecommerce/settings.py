@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,9 +26,26 @@ SECRET_KEY = 'django-insecure-j6ds!@o$b!e)o$@lkmu@egb#4q#wo8l0@db%mke0f*=c*a)r@*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = [
-    'ecommerce-website1-iota.vercel.app',
+    "localhost",
+    "127.0.0.1",
+    "ecommerce-website-frj5atues-peramganeshreddy2385-5569.vercel.app",
 ]
+
+# Automatically allow Vercel deployment domains
+for env_name in ("VERCEL_URL", "VERCEL_PROJECT_PRODUCTION_URL"):
+    host = os.environ.get(env_name)
+    if host and host not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append(host)
+
+# Allow HTTPS form submissions from Vercel domains
+CSRF_TRUSTED_ORIGINS = [
+    f"https://{host}"
+    for host in ALLOWED_HOSTS
+    if host.endswith(".vercel.app")
+]
+
 
 
 # Application definition

@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-j6ds!@o$b!e)o$@lkmu@egb#4q#wo8l0@db%mke0f*=c*a)r@*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'ecommerce-website1-iota.vercel.app',
+]
 
 
 # Application definition

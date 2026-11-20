@@ -1,0 +1,3 @@
+{% extends 'base.html' %}
+{% block title %}My orders | Marketly{% endblock %}
+{% block content %}<section class="section"><div class="section-heading"><h1>My orders</h1></div>{% if orders %}<table class="order-table"><thead><tr><th>Order</th><th>Date</th><th>Total</th><th>Status</th></tr></thead><tbody>{% for order in orders %}<tr><td><a href="{% url 'order_detail' order.order_number %}">#{{ order.order_number }}</a></td><td>{{ order.created_at|date:'M d, Y' }}</td><td>${{ order.total_amount }}</td><td>{{ order.status }}</td></tr>{% endfor %}</tbody></table>{% else %}<p>You have not placed any orders.</p>{% endif %}</section>{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">New everyday essentials</p>
+    <h1>Shop what<br>you need.</h1>
+    <a class="button" href="{% url 'product_list' %}">Browse products</a>
+  </div>
+</section>
+<section class="section">
+  <div class="section-heading"><h2>Categories</h2></div>
+  <div class="category-list">
+    {% for category in categories %}
+      <a href="{% url 'product_list' %}?category={{ category.slug }}">{{ category.name }}</a>
+    {% empty %}<p>No categories yet.</p>{% endfor %}
+  </div>
+</section>
+<section class="section">
+  <div class="section-heading"><h2>Featured products</h2><a href="{% url 'product_list' %}">View all</a></div>
+  <div class="product-grid">
+    {% for product in featured_products %}
+      {% include 'products/product_card.html' %}
+    {% empty %}<p>No featured products yet.</p>{% endfor %}
+  </div>
+</section>
+{% endblock %}

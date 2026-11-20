@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}{{ product.name }} | Marketly{% endblock %}
+{% block content %}
+<section class="detail-layout">
+  <div class="detail-image">
+    {% if product.image %}<img src="{{ product.image.url }}" alt="{{ product.name }}">{% else %}<span>Product image</span>{% endif %}
+  </div>
+  <div class="detail-info">
+    <p class="eyebrow">{{ product.category.name }}</p>
+    <h1>{{ product.name }}</h1>
+    <p class="detail-price">${{ product.price }}</p>
+    <p>{{ product.description }}</p>
+    <p class="stock {% if not product.stock %}out{% endif %}">{% if product.stock %}{{ product.stock }} in stock{% else %}Out of stock{% endif %}</p>
+    {% if product.stock %}
+      <form method="post" action="{% url 'add_to_cart' product.id %}" class="add-cart">
+        {% csrf_token %}
+        <label>Quantity <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}"></label>
+        <button class="button" type="submit">Add to cart</button>
+      </form>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

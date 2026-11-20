@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Products | Marketly{% endblock %}
+{% block content %}
+<section class="section product-page">
+  <div class="section-heading"><div><p class="eyebrow">Shop the collection</p><h1>All products</h1></div></div>
+  <form class="filters" method="get">
+    <input type="hidden" name="q" value="{{ request.GET.q }}">
+    <label>Category
+      <select name="category" onchange="this.form.submit()">
+        <option value="">All categories</option>
+        {% for category in categories %}<option value="{{ category.slug }}" {% if request.GET.category == category.slug %}selected{% endif %}>{{ category.name }}</option>{% endfor %}
+      </select>
+    </label>
+    <label>Sort
+      <select name="sort" onchange="this.form.submit()">
+        <option value="">Newest</option>
+        <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>Price: low to high</option>
+        <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>Price: high to low</option>
+      </select>
+    </label>
+  </form>
+  <div class="product-grid">
+    {% for product in products %}{% include 'products/product_card.html' %}{% empty %}<p>No products match your filters.</p>{% endfor %}
+  </div>
+</section>
+{% endblock %}
